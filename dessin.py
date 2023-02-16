@@ -4,12 +4,12 @@ from tkinter.filedialog import askopenfilename, askdirectory
 import os
 import tkinter.simpledialog
 
-print("""Dessinateur ©GTProductions.
-Merci d'utiliser dessin.py !
+print("""Dessinator created by FewerElk (github.com/FewerElk)
+Thank for using dessinator !
 
 Version : 2.0
-Cette fenêtre est indispensable au bon fonctionnement du programme mais est inutile à l'utilisateur.
-MERCI DE NE PAS LA FERMER.""")
+This screen isn't useful for the user, but is essencial for the app.
+PLEASE DO NOT CLOSE IT.""")
 
 
 class Desktop(object):
@@ -35,7 +35,7 @@ class Desktop(object):
 
         self.desktop = Tk()
         self.desktop.resizable(False, False)
-        self.desktop.title("Dessinateur")
+        self.desktop.title("Dessinator")
 
         self.importing()
 
@@ -73,7 +73,6 @@ class Dessinateur(object):
         DIR = ".temp/"
         if not(os.path.exists(os.getcwd() + DIR)):
             os.system("md .temp")
-            print("Appling temp GIF images")
         try:
             self.nrectangle = PhotoImage(master=self.root, file=DIR + "rectangle.gif")
             self.novale = PhotoImage(master=self.root, file=DIR + "ovale.gif")
@@ -114,14 +113,11 @@ class Dessinateur(object):
 
             self.importing()
 
-        print("Initialising GIF images ok")
 
     def __init__(self):
         self.avant = None
         self.restaure = None
         self.color_w = "red"
-        # liste pour la savegarde (l = ligne, o = ovale, r = rectangle, g = gomme).
-        # #Présenté sous la forme "[type][coord1][coord2][color]\n"
         self.actions = []
 
         self.mltline = False
@@ -132,14 +128,14 @@ class Dessinateur(object):
         self.importing()
 
         self.gomming = False
-        self.root.title("Dessinateur")
+        self.root.title("Dessinator")
         self.root.resizable(False, False)
         self.root.attributes("-fullscreen", True)
 
         self.lframe = Frame(self.root)
         self.lframe.pack(side=TOP)
 
-        self.label = Label(self.lframe, text="Sélectionnez un outil\npour commencer à dessiner", font=("", 25))
+        self.label = Label(self.lframe, text="Select a tool\nfor start to draw.", font=("", 25))
         self.label.pack(side=TOP)
 
         self.ftools = Frame(self.root)
@@ -183,44 +179,44 @@ class Dessinateur(object):
         self.menu = Menu(self.root)
 
         self.filemenu = Menu(self.menu, tearoff=0)
-        self.filemenu.add_command(label="Nouveau")
-        self.filemenu.add_command(label="Ouvrir | Ctrl + o", command=self.open_folder)
+        self.filemenu.add_command(label="New")
+        self.filemenu.add_command(label="Open | Ctrl + o", command=self.open_folder)
         self.root.bind("<Control o>", self.open_folder)
         self.filemenu.add_separator()
-        self.filemenu.add_command(label="Enregistrer | Ctrl + s", command=self.sauvegarder)
+        self.filemenu.add_command(label="Save (as) | Ctrl + s", command=self.sauvegarder)
         self.root.bind("<Control s>", self.sauvegarder)
         self.filemenu.add_separator()
-        self.filemenu.add_command(label="QUITTER", command=self.root.destroy)
-        self.filemenu.add_command(label="QUITTER L'APPLICATION", command=exit)
+        self.filemenu.add_command(label="CLOSE", command=self.root.destroy)
+        self.filemenu.add_command(label="QUIT THIS APP", command=exit)
 
-        self.menu.add_cascade(label="Fichier", menu=self.filemenu)
+        self.menu.add_cascade(label="Folder", menu=self.filemenu)
 
         self.editionmenu = Menu(self.menu, tearoff=0)
 
-        self.editionmenu.add_command(label="Annuler | Ctrl + z", command=self.retour)
+        self.editionmenu.add_command(label="Undo | Ctrl + z", command=self.retour)
         self.root.bind("<Control z>", self.retour)
-        self.editionmenu.add_command(label="Rétablir | Ctrl + y", command=self.restaurer)
+        self.editionmenu.add_command(label="Redo | Ctrl + y", command=self.restaurer)
         self.root.bind("<Control y>", self.restaurer)
 
-        self.menu.add_cascade(label="Edition", menu=self.editionmenu)
+        self.menu.add_cascade(label="Edit", menu=self.editionmenu)
 
         self.toolsmenu = Menu(self.menu)
 
-        self.toolsmenu.add_command(label="Créer un rectangle | r", command=self.rectangle1)
+        self.toolsmenu.add_command(label="Create a rectangle | r", command=self.rectangle1)
         self.root.bind("<KeyPress-r>", self.rectangle1)
-        self.toolsmenu.add_command(label="Créer un ovale | o", command=self.cercle1)
+        self.toolsmenu.add_command(label="Create an oval | o", command=self.cercle1)
         self.root.bind("<KeyPress-o>", self.cercle1)
-        self.toolsmenu.add_command(label="Créer une ligne | l", command=self.line1)
+        self.toolsmenu.add_command(label="Create a line | l", command=self.line1)
         self.root.bind("<KeyPress-l>", self.line1)
-        self.toolsmenu.add_command(label="Créer une ligne brisée | b", command=self.multiline1)
+        self.toolsmenu.add_command(label="Create a broken line | b", command=self.multiline1)
         self.root.bind("<KeyPress-b>", self.multiline1)
         self.toolsmenu.add_separator()
         self.toolsmenu.add_command(label="TOUT EFFACER", command=self.clean_all)
         self.toolsmenu.add_separator()
-        self.toolsmenu.add_command(label="Choisir la couleur | c", command=self.chose)
+        self.toolsmenu.add_command(label="Choose the color | c", command=self.chose)
         self.root.bind("<KeyPress-c>", self.chose)
 
-        self.menu.add_cascade(label="Outils", menu=self.toolsmenu)
+        self.menu.add_cascade(label="Tools", menu=self.toolsmenu)
 
         self.root.config(menu=self.menu)
 
@@ -231,13 +227,13 @@ class Dessinateur(object):
         except:
             pass
         self.label.destroy()
-        self.label = Label(self.lframe, text="Ligne :\nCliquez sur le premier point.", font=("", 25))
+        self.label = Label(self.lframe, text="Line :\nClick on the first point.", font=("", 25))
         self.label.pack()
         self.canvas.bind("<Button-1>", self.line2)
 
     def line2(self, event):
         self.label.destroy()
-        self.label = Label(self.lframe, text="Ligne :\nCliquez sur le second point.", font=("", 25))
+        self.label = Label(self.lframe, text="Line :\nClick on the second point.", font=("", 25))
         self.label.pack()
         self.x1 = event.x
         self.y1 = event.y
@@ -253,7 +249,7 @@ class Dessinateur(object):
 
     def line3(self, event):
         self.label.destroy()
-        self.label = Label(self.lframe, text="Sélectionnez un outil\npour commencer à dessiner", font=("", 25))
+        self.label = Label(self.lframe, text="Select a tool\nfor start to draw.", font=("", 25))
         self.label.pack()
         self.x2 = event.x
         self.y2 = event.y
@@ -263,13 +259,12 @@ class Dessinateur(object):
         self.avant = self.canvas.create_line(self.x1, self.y1, self.x2, self.y2, fill=self.color_w)
         self.actions.append(
             "l-{0}-{1}-{2}-{3}-{4}\n".format(str(self.x1), str(self.y1), str(self.x2), str(self.y2), self.color_w))
-        # self.actions.append("l" + "-" + str(self.x1) + "-" + str(self.y1) + "-" + str(self.x2) + "-" + str(self.y2) + "-" + self.color_w + "\n")
 
     def clean_all(self):
-        tkinter.simpledialog.messagebox.showwarning("Tout effacer",
-                                                    "ATTENTION :\nSi vous continuez, votre dessin sera effacé sans retour en arrière possible.",
+        tkinter.simpledialog.messagebox.showwarning("All clear",
+                                                    "CAUTION :\nif you continue, your project will be clear without undo.",
                                                     master=self.root)
-        if tkinter.simpledialog.messagebox.askokcancel("Tout effacer", "Voulez-vous vraiment tout effacer ?",
+        if tkinter.simpledialog.messagebox.askokcancel("All clear", "Do you really want to clear your project ?",
                                                        master=self.root):
             self.canvas.create_rectangle(0, 0, self.LARGEUR, self.HAUTEUR, fill="white", outline="white")
             del self.actions
@@ -282,13 +277,13 @@ class Dessinateur(object):
         except:
             pass
         self.label.destroy()
-        self.label = Label(self.lframe, text="Rectangle :\nCliquez sur le premier point.", font=("", 25))
+        self.label = Label(self.lframe, text="Rectangle :\nClick on the first point.", font=("", 25))
         self.label.pack()
         self.canvas.bind("<Button-1>", self.rectangle2)
 
     def rectangle2(self, event):
         self.label.destroy()
-        self.label = Label(self.lframe, text="Rectangle :\nCliquez sur le second point.", font=("", 25))
+        self.label = Label(self.lframe, text="Rectangle :\nClick on the second point.", font=("", 25))
         self.label.pack()
         self.x1 = event.x
         self.y1 = event.y
@@ -304,14 +299,13 @@ class Dessinateur(object):
 
     def rectangle3(self, event):
         self.label.destroy()
-        self.label = Label(self.lframe, text="Sélectionnez un outil\npour commencer à dessiner", font=("", 25))
+        self.label = Label(self.lframe, text="Select a tool\nfor start to draw.", font=("", 25))
         self.label.pack()
         self.x2 = event.x
         self.y2 = event.y
         self.avant = self.canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill=self.color_w)
         self.actions.append(
             "r-{0}-{1}-{2}-{3}-{4}\n".format(str(self.x1), str(self.y1), str(self.x2), str(self.y2), self.color_w))
-        # self.actions.append("r" + "-" + str(self.x1) + "-" + str(self.y1) + "-" + str(self.x2) + "-" + str(self.y2) + "-" + self.color_w + "\n")
         self.canvas.bind("<Button-1>", self.rien)
         self.canvas.bind("<Motion>", self.rien)
 
@@ -325,13 +319,13 @@ class Dessinateur(object):
         except:
             pass
         self.label.destroy()
-        self.label = Label(self.lframe, text="Ovale :\nCliquez sur le premier point.", font=("", 25))
+        self.label = Label(self.lframe, text="Oval :\nClick on the first point.", font=("", 25))
         self.label.pack()
         self.canvas.bind("<Button-1>", self.cercle2)
 
     def cercle2(self, event):
         self.label.destroy()
-        self.label = Label(self.lframe, text="Ovale :\nCliquez sur le second point.", font=("", 25))
+        self.label = Label(self.lframe, text="Oval :\nClick on the second point.", font=("", 25))
         self.label.pack()
         self.x1 = event.x
         self.y1 = event.y
@@ -347,7 +341,7 @@ class Dessinateur(object):
 
     def cercle3(self, event):
         self.label.destroy()
-        self.label = Label(self.lframe, text="Sélectionnez un outil\npour commencer à dessiner", font=("", 25))
+        self.label = Label(self.lframe, text="Select a tool\nfor start to draw.", font=("", 25))
         self.label.pack()
         self.x2 = event.x
         self.y2 = event.y
@@ -369,13 +363,13 @@ class Dessinateur(object):
             self.canvas.bind("<B1-Motion>", self.gommer2)
             self.gomming = True
             self.label.destroy()
-            self.label = Label(self.lframe, text="Gomme :\nMaintenir pour gommer.", font=("", 25))
+            self.label = Label(self.lframe, text="Erasor :\nClick and move the mouse for clear.", font=("", 25))
             self.label.pack()
         else:
             self.canvas.bind("<B1-Motion>", self.rien)
             self.gomming = False
             self.label.destroy()
-            self.label = Label(self.lframe, text="Sélectionnez un outil\npour commencer à dessiner", font=("", 25))
+            self.label = Label(self.lframe, text="Select a tool\nfor start to draw.", font=("", 25))
             self.label.pack()
 
     def gommer2(self, event):
@@ -404,7 +398,7 @@ class Dessinateur(object):
             self.mltline = True
             self.canvas.bind("<Button-1>", self.multiline2)
             self.label.destroy()
-            self.label = Label(self.lframe, text="Ligne brisée :\nCliquez sur le premier point.", font=("", 25))
+            self.label = Label(self.lframe, text="Broken line :\nClick on the first point.", font=("", 25))
             self.label.pack()
         else:
             self.mltline = False
@@ -415,12 +409,12 @@ class Dessinateur(object):
             except:
                 pass
             self.label.destroy()
-            self.label = Label(self.lframe, text="Sélectionnez un outil\npour commencer à dessiner", font=("", 25))
+            self.label = Label(self.lframe, text="Select a tool\nfor start to draw.", font=("", 25))
             self.label.pack()
 
     def multiline2(self, event):
         self.label.destroy()
-        self.label = Label(self.lframe, text="Ligne brisée :\nCliquez pour créer un autre segment.", font=("", 25))
+        self.label = Label(self.lframe, text="Broken line :\nClick for create a new line.", font=("", 25))
         self.label.pack()
         self.x1 = event.x
         self.y1 = event.y
@@ -442,18 +436,18 @@ class Dessinateur(object):
         self.y1 = self.y2
 
     def sauvegarder(self, event=None):
-        self.dirsauv = askdirectory(initialdir="{0}/Images".format(os.getcwd()), title="Sélectionnez le répertoire",
+        self.dirsauv = askdirectory(initialdir="{0}/Images".format(os.getcwd()), title="Select the directory",
                                     master=self.root)
 
-        self.entreesauv = tkinter.simpledialog.askstring("Sauvegarde",
-                                                         "Entrez le nom du fichier (sans l'extention .pymage)")  # , master=self.root)
+        self.entreesauv = tkinter.simpledialog.askstring("Saving",
+                                                         "Please enter the file's name without the .pymage extention :")
         try:
             if self.entreesauv == "":
                 raise RuntimeError
             self.ok_sauv()
         except:
-            tkinter.simpledialog.messagebox.showwarning("Sauvegarde",
-                                                        "Sauvegarde non effectuée : nom de fichier incorrect ou manquant :\nErreur lors de la sauvegarde.",
+            tkinter.simpledialog.messagebox.showwarning("Saving",
+                                                        "Save canceled : file's name is empty or unexist :\nAn error occured while saving this project.",
                                                         master=self.root)
 
     def ok_sauv(self):
@@ -461,7 +455,7 @@ class Dessinateur(object):
         with open(self.true_name, "w") as file:
             for i, j in enumerate(self.actions):
                 file.write(j)
-        tkinter.simpledialog.messagebox.showinfo("Sauvegarde", "Sauvegarde effectuée !", master=self.root)
+        tkinter.simpledialog.messagebox.showinfo("Saving", "Project saved !", master=self.root)
 
     def open1(self):
         a = Dessinateur()
@@ -498,17 +492,16 @@ class Dessinateur(object):
                     else:
                         pass
             except IndexError:
-                tkinter.simpledialog.messagebox.showerror("Erreur",
-                                                          "Votre fichier a été créé dans une version antérieure de l'application, il est donc impossible de l'ouvrir.",
+                tkinter.simpledialog.messagebox.showerror("Error",
+                                                          "Your file was created in an other version of this app (actually 2.0), so we didn't open it. You should open this file with the good version.",
                                                           master=self.root)
                 self.root.destroy()
                 exit()
 
         except:
-            # error = Error("File", self, "STOP", "error while opening file \"{0}\".".format(f))
             try:
-                tkinter.simpledialog.messagebox.showerror("Erreur",
-                                                          "Erreur lors de l'ouverture du fichier  {0}. Le fichier n'est peut-être pas dans le bon format ou d'une version antérieure.".format(
+                tkinter.simpledialog.messagebox.showerror("Error",
+                                                          "An error occured while opening file {0}. This file wasn't in the good format or in a other version.".format(
                                                               f), master=self.root)
                 self.root.destroy()
             except:
@@ -521,7 +514,7 @@ class Dessinateur(object):
             self.avant = None
             self.actions.pop()
         else:
-            tkinter.simpledialog.messagebox.showwarning("Retour en arrière", "Impossible de revenir en arrière.",
+            tkinter.simpledialog.messagebox.showwarning("Undo", "You can't undo.",
                                                         master=self.root)
 
     def restaurer(self, event=None):
@@ -531,14 +524,14 @@ class Dessinateur(object):
             self.actions.append(self.restaure)
             self.restaure = None
         else:
-            tkinter.simpledialog.messagebox.showwarning("Restaurer", "Impossible de restaurer.", master=self.root)
+            tkinter.simpledialog.messagebox.showwarning("Redo", "You can't redo.", master=self.root)
 
     def chose(self, event=None):
         self.color_w = tkinter.colorchooser.askcolor(master=self.root)[1]
         if self.color_w == None:
             self.color_w = "red"
         else:
-            tkinter.simpledialog.messagebox.showinfo("Sélectionneur de couleurs", "Couleur mise à jour avec succès.",
+            tkinter.simpledialog.messagebox.showinfo("Colors selector", "Color updated !",
                                                      master=self.root)
 
 
