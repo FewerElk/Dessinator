@@ -1,4 +1,4 @@
-# Dessin-V2
+# Dessinator 
 You should uncompress the file before using
 Depend :
 - os
