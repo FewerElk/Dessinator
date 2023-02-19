@@ -4,8 +4,8 @@ from tkinter.filedialog import askopenfilename, askdirectory
 import os
 import tkinter.simpledialog
 
-print("""Dessinateur ©GTProductions.
-Merci d'utiliser dessin.py !
+print("""Dessinator
+Merci d'utiliser dessinator !
 
 Version : 2.0
 Cette fenêtre est indispensable au bon fonctionnement du programme mais est inutile à l'utilisateur.
